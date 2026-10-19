@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Game Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">GAME<span>FINDER</span></a>
+    <span class="status">
+      <span class="status-dot"></span>
+      ASSISTANT ONLINE
+    </span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="assistant-icon">✦</div>
+      <p class="eyebrow">YOUR PERSONAL GAMING COMPANION</p>
+      <h1>Find your next <span>favorite game.</span></h1>
+      <p class="intro">
+        Every player is different. Tell me what you enjoy,
+        and I'll help you discover your next adventure.
+      </p>
+      <div class="assistant-message">
+        <span class="message-icon">✦</span>
+        <p id="assistantMessage">
+          Hey, player! Ready to find a game that feels
+          like it was made for you?
+        </p>
+      </div>
+    </section>
+
+    <section class="panel" id="preferences">
+      <div class="section-heading">
+        <span class="step-number">01</span>
+        <div>
+          <h2>Build your player profile</h2>
+          <p>Choose what sounds fun to you.</p>
+        </div>
+      </div>
+
+      <form id="gameForm">
+        <fieldset>
+          <legend>What genres do you enjoy?</legend>
+          <p class="hint">Choose as many as you like.</p>
+
+          <div class="choice-grid">
+            <label class="choice">
+              <input type="checkbox" name="genre" value="adventure">
+              <span>🗺️ Adventure</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="cozy">
+              <span>☁️ Cozy</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="horror">
+              <span>👻 Horror</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="rpg">
+              <span>⚔️ RPG</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="puzzle">
+              <span>🧩 Puzzle</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="simulation">
+              <span>🏡 Simulation</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="platformer">
+              <span>🎮 Platformer</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" name="genre" value="action">
+              <span>⚡ Action</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>What kind of experience do you want?</legend>
+          <div class="select-wrap">
+            <select id="mood" required>
+              <option value="">Choose your mood</option>
+              <option value="relaxing">Relaxing and peaceful</option>
+              <option value="funny">Funny and lighthearted</option>
+              <option value="mysterious">Mysterious and spooky</option>
+              <option value="emotional">Emotional and story-rich</option>
+              <option value="exciting">Exciting and action-packed</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>How do you like to play?</legend>
+          <div class="select-wrap">
+            <select id="playstyle" required>
+              <option value="">Choose your play style</option>
+              <option value="exploration">Exploring new worlds</option>
+              <option value="story">Following a great story</option>
+              <option value="creativity">Creating and building</option>
+              <option value="challenge">Solving puzzles and challenges</option>
+              <option value="combat">Fighting and taking action</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <button class="primary-button" type="submit">
+          Find my games <span>→</span>
+        </button>
+
+        <p class="form-note">
+          No wrong answers. Your next favorite game could be
+          something completely new.
+        </p>
+      </form>
+    </section>
+
+    <section class="results-section" id="results" hidden>
+      <div class="section-heading">
+        <span class="step-number">02</span>
+        <div>
+          <h2>Your game matches</h2>
+          <p id="resultIntro">Here are games picked for you.</p>
+        </div>
+      </div>
+
+      <div id="gameResults" class="results-grid"></div>
+
+      <button class="secondary-button" id="startOver" type="button">
+        ← Change my preferences
+      </button>
+    </section>
+
+    <footer>
+      <p>GAMEFINDER <span>•</span> VERSION 1.0</p>
+      <p>Made for players who want to find their next adventure.</p>
+    </footer>
+  </main>
+</body>
+</html>
