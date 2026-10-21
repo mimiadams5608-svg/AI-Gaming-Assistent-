@@ -3,34 +3,27 @@
 
 AI Game Finder is a website that recommends games based on users' interests and preferences. It aims to help gamers discover new games, including indie games.
 
-Features
+Features:
 
-Select game genres, moods, and playstyles.
+- Select game genres, moods, and playstyles.
 
-Get game recommendations based on your preferences.
+- Get game recommendations based on your preferences.
 
-See why each game matches your interests.
+- See why each game matches your interests.
 
-Technologies
 
-HTML
+How It Works: 
 
-CSS
+- Users select their preferences, and the website matches them with games from its existing collection.
 
-JavaScript
+Future Improvements: 
 
-How It Works
+- Show all matching games by default.
 
-Users select their preferences, and the website matches them with games from its existing collection.
+- Let users choose how many recommendations they see.
 
-Future Improvements
+- Add more indie games to the collection.
 
-Show all matching games by default.
+Project Status: 
 
-Let users choose how many recommendations they see.
-
-Add more indie games to the collection.
-
-Project Status
-
-This project is a work in progress.
+- This project is a work in progress.
