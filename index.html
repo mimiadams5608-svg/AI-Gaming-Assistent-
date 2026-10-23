@@ -27,6 +27,40 @@
   </div>
 </header>
 
+<section id="authPanel" class="auth-panel" hidden>
+  <h2 id="authTitle">Log In</h2>
+  <p id="authMessage">Sign in to your Game Finder account.</p>
+
+  <form id="authForm">
+    <label for="authEmail">Email</label>
+    <input
+      id="authEmail"
+      type="email"
+      autocomplete="email"
+      placeholder="you@example.com"
+      required
+    />
+
+    <label for="authPassword">Password</label>
+    <input
+      id="authPassword"
+      type="password"
+      autocomplete="current-password"
+      minlength="6"
+      placeholder="At least 6 characters"
+      required
+    />
+
+    <button id="authSubmit" type="submit">Log In</button>
+    <button id="authCancel" type="button">Cancel</button>
+  </form>
+
+  <p id="authStatus" role="status" aria-live="polite"></p>
+</section>
+
+<div id="accountStatus" aria-live="polite"></div>
+<button id="logoutButton" type="button" hidden>Log Out</button>
+
 
   <main class="container">
     <section class="hero">
