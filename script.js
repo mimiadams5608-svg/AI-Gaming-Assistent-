@@ -239,3 +239,146 @@ startOverButton.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+const authPanel = document.getElementById("authPanel");
+const authTitle = document.getElementById("authTitle");
+const authMessage = document.getElementById("authMessage");
+const authForm = document.getElementById("authForm");
+const authEmail = document.getElementById("authEmail");
+const authPassword = document.getElementById("authPassword");
+const authSubmit = document.getElementById("authSubmit");
+const authCancel = document.getElementById("authCancel");
+const authStatus = document.getElementById("authStatus");
+const accountStatus = document.getElementById("accountStatus");
+const logoutButton = document.getElementById("logoutButton");
+
+let authMode = "login";
+
+function openAuthForm(mode) {
+  authMode = mode;
+  authTitle.textContent =
+    mode === "signup" ? "Create Account" : "Log In";
+
+  authMessage.textContent =
+    mode === "signup"
+      ? "Create your account with your email and password."
+      : "Sign in to your Game Finder account.";
+
+  authSubmit.textContent =
+    mode === "signup" ? "Create Account" : "Log In";
+
+  authPassword.autocomplete =
+    mode === "signup" ? "new-password" : "current-password";
+
+  authStatus.textContent = "";
+  authForm.reset();
+  authPanel.hidden = false;
+  authPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+document.getElementById("loginButton").addEventListener("click", () => {
+  openAuthForm("login");
+});
+
+document.getElementById("signupButton").addEventListener("click", () => {
+  openAuthForm("signup");
+});
+
+authCancel.addEventListener("click", () => {
+  authPanel.hidden = true;
+  authStatus.textContent = "";
+});
+
+authForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = authEmail.value.trim();
+  const password = authPassword.value;
+
+  authSubmit.disabled = true;
+  authStatus.textContent = "Please wait...";
+
+  try {
+    let result;
+
+    if (authMode === "signup") {
+      result = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: window.location.origin
+        }
+      });
+    } else {
+      result = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+    }
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    if (authMode === "signup" && !result.data.session) {
+      authStatus.textContent =
+        "Account request received! Check your email for a confirmation link before signing in.";
+    } else {
+      authStatus.textContent =
+        authMode === "signup"
+          ? "Account created successfully!"
+          : "You are now logged in!";
+
+      authForm.reset();
+      authPanel.hidden = true;
+    }
+
+    await updateAccountStatus();
+  } catch (error) {
+    authStatus.textContent =
+      error.message || "Something went wrong. Please try again.";
+  } finally {
+    authSubmit.disabled = false;
+  }
+});
+
+async function updateAccountStatus() {
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error) {
+    accountStatus.textContent = "";
+    return;
+  }
+
+  if (data.user) {
+    accountStatus.textContent = `Signed in as ${data.user.email}`;
+    logoutButton.hidden = false;
+    document.getElementById("loginButton").hidden = true;
+    document.getElementById("signupButton").hidden = true;
+  } else {
+    accountStatus.textContent = "You are not signed in.";
+    logoutButton.hidden = true;
+    document.getElementById("loginButton").hidden = false;
+    document.getElementById("signupButton").hidden = false;
+  }
+}
+
+logoutButton.addEventListener("click", async () => {
+  logoutButton.disabled = true;
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    accountStatus.textContent = error.message;
+  } else {
+    accountStatus.textContent = "You have logged out.";
+    await updateAccountStatus();
+  }
+
+  logoutButton.disabled = false;
+});
+
+supabaseClient.auth.onAuthStateChange(() => {
+  updateAccountStatus();
+});
+
+updateAccountStatus();
