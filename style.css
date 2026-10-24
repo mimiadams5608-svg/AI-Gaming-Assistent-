@@ -383,3 +383,306 @@ footer span {
     padding: 18px;
   }
 }
+
+/* ========================================
+   GAME FINDER — LOGIN & SIGNUP REDESIGN
+   ======================================== */
+
+/* Give the authentication pages their own atmosphere */
+body:has(.auth-page) {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 15% 35%, #23356855 0%, transparent 38%),
+    radial-gradient(ellipse at 85% 75%, #58357a30 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 0%, #182450 0%, transparent 48%),
+    var(--background);
+}
+
+/* Cleaner header */
+body:has(.auth-page) .topbar {
+  padding: 22px clamp(20px, 7%, 100px);
+  border-bottom: 1px solid #ffffff0d;
+  background: #070b1870;
+  backdrop-filter: blur(16px);
+}
+
+body:has(.auth-page) .logo {
+  font-size: 1.05rem;
+}
+
+body:has(.auth-page) .status {
+  padding: 8px 12px;
+  border: 1px solid #55f5b025;
+  border-radius: 999px;
+  background: #55f5b008;
+}
+
+/* Main page layout */
+.auth-page {
+  width: min(100% - 32px, 470px);
+  margin: 38px auto 0;
+  padding-bottom: 10px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.back-link:hover {
+  color: var(--cyan);
+  transform: translateX(-3px);
+}
+
+/* Authentication card */
+.auth-page .auth-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(26px, 6vw, 44px);
+  border: 1px solid #7182b638;
+  border-radius: 26px;
+  background:
+    linear-gradient(145deg, #151f39f5, #0c1223f7);
+  box-shadow:
+    0 25px 80px #00000045,
+    0 0 50px #596cff0b,
+    inset 0 1px 0 #ffffff0c;
+}
+
+/* Subtle decorative glow at the top of the card */
+.auth-page .auth-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan),
+    var(--purple),
+    transparent
+  );
+  opacity: 0.8;
+}
+
+/* Icon */
+.auth-page .assistant-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 23px;
+  border: 1px solid #7d86e477;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 30% 20%, #304b7d, transparent 75%),
+    linear-gradient(135deg, #17294a, #34244f);
+  color: var(--cyan);
+  font-size: 2.2rem;
+  box-shadow:
+    0 0 35px #63e8ff13,
+    inset 0 1px 0 #ffffff15;
+}
+
+/* Headings and supporting text */
+.auth-page .eyebrow {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 2.2px;
+}
+
+.auth-page h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 7vw, 3.1rem);
+  line-height: 1.15;
+  letter-spacing: -1.8px;
+  text-align: center;
+}
+
+.auth-page h1 span {
+  display: inline;
+}
+
+.auth-description {
+  max-width: 310px;
+  margin: 15px auto 30px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* Form spacing */
+.auth-page .auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-page .auth-form label {
+  margin-top: 8px;
+  color: #e4eaff;
+  font-size: 0.83rem;
+  font-weight: 600;
+}
+
+.auth-page .auth-form input {
+  width: 100%;
+  min-height: 51px;
+  padding: 14px 15px;
+  border: 1px solid #34415f;
+  border-radius: 12px;
+  outline: none;
+  background: #090f20a8;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+.auth-page .auth-form input::placeholder {
+  color: #7885a0;
+}
+
+.auth-page .auth-form input:hover {
+  border-color: #52648b;
+}
+
+.auth-page .auth-form input:focus {
+  border-color: var(--cyan);
+  background: #101a30;
+  box-shadow: 0 0 0 3px #63e8ff18;
+}
+
+/* Primary action button */
+.auth-page .auth-form .primary-button {
+  min-height: 52px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(105deg, #63e8ff, #a78bfa);
+  color: #080d1b;
+  font-size: 0.94rem;
+  font-weight: 800;
+  box-shadow: 0 8px 24px #63e8ff15;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+
+.auth-page .auth-form .primary-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 12px 30px #63e8ff25;
+}
+
+.auth-page .auth-form .primary-button:active {
+  transform: translateY(0);
+}
+
+.auth-page .auth-form .primary-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* Status messages */
+.auth-status {
+  min-height: 1.5em;
+  margin: 15px 0 0;
+  color: var(--cyan);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Link to the other authentication page */
+.auth-links {
+  margin: 24px 0 0;
+  padding-top: 21px;
+  border-top: 1px solid #ffffff10;
+  color: var(--muted);
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+.auth-links a {
+  margin-left: 4px;
+  color: var(--cyan);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-links a:hover {
+  color: #c2f7ff;
+  text-decoration: underline;
+}
+
+/* Footer */
+.auth-page footer {
+  padding: 28px 0 20px;
+}
+
+.auth-page footer p {
+  margin: 5px 0;
+}
+
+/* Keyboard accessibility */
+.auth-page a:focus-visible,
+.auth-page button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+/* Phone-sized screens */
+@media (max-width: 650px) {
+  body:has(.auth-page) .topbar {
+    padding: 18px 20px;
+  }
+
+  .auth-page {
+    width: min(100% - 28px, 470px);
+    margin-top: 25px;
+  }
+
+  .auth-page .auth-panel {
+    padding: 28px 22px;
+    border-radius: 21px;
+  }
+
+  .auth-page .assistant-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 19px;
+  }
+
+  .auth-page h1 {
+    font-size: 2.35rem;
+  }
+
+  .auth-page .status {
+    font-size: 0.58rem;
+    letter-spacing: 0.7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-page *,
+  body:has(.auth-page) * {
+    scroll-behavior: auto;
+    transition: none !important;
+  }
+}
+
