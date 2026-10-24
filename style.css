@@ -773,3 +773,88 @@ body:has(.auth-page) .status {
   }
 }
 
+/* My Profile button on the homepage */
+#profileButton {
+  width: auto;
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 18px;
+  border: 1px solid #52648b;
+  border-radius: 12px;
+  background: #111a30;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+#profileButton:hover {
+  transform: translateY(-2px);
+  border-color: var(--cyan);
+  box-shadow: 0 5px 20px #63e8ff18;
+}
+/* ========================================
+   LOG OUT BUTTON — GAME FINDER THEME
+   ======================================== */
+
+#logoutButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 18px;
+
+  border: 1px solid #765da9;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1a2340, #211b3a);
+  color: var(--text);
+
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+#logoutButton:hover {
+  transform: translateY(-2px);
+  border-color: var(--purple);
+  background: linear-gradient(135deg, #202e50, #30234d);
+  box-shadow:
+    0 5px 20px #a78bfa20,
+    0 0 12px #63e8ff0a;
+}
+
+#logoutButton:active {
+  transform: translateY(0);
+}
+
+#logoutButton:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+#logoutButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
+/* Mobile layout */
+@media (max-width: 650px) {
+  #logoutButton {
+    min-height: 38px;
+    padding: 9px 12px;
+    font-size: 0.78rem;
+  }
+}
