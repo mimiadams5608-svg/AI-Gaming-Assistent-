@@ -365,18 +365,28 @@ async function updateAccountStatus() {
 
 logoutButton.addEventListener("click", async () => {
   logoutButton.disabled = true;
-  const { error } = await supabaseClient.auth.signOut();
+  accountStatus.textContent = "Logging out...";
 
-  if (error) {
-    accountStatus.textContent = error.message;
-  } else {
+  try {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    authPanel.hidden = true;
+    authForm.reset();
+
     accountStatus.textContent = "You have logged out.";
+
     await updateAccountStatus();
+  } catch (error) {
+    accountStatus.textContent =
+      error.message || "Unable to log out. Please try again.";
+  } finally {
+    logoutButton.disabled = false;
   }
-
-  logoutButton.disabled = false;
 });
-
 supabaseClient.auth.onAuthStateChange(() => {
   updateAccountStatus();
 });
