@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | AI Game Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">GAME<span>FINDER</span></a>
+    <span class="status">
+      <span class="status-dot"></span>
+      ASSISTANT ONLINE
+    </span>
+  </header>
+
+  <main class="auth-page">
+    <a class="back-link" href="index.html">← Back to Game Finder</a>
+
+    <section class="auth-panel">
+      <div class="assistant-icon">✦</div>
+      <p class="eyebrow" style="text-align:center">WELCOME BACK, PLAYER</p>
+      <h1>Log <span>In.</span></h1>
+      <p class="auth-description">
+        Sign in to continue your gaming journey.
+      </p>
+
+      <form id="loginForm" class="auth-form">
+        <label for="loginEmail">Email address</label>
+        <input
+          id="loginEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        >
+
+        <label for="loginPassword">Password</label>
+        <input
+          id="loginPassword"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Enter your password"
+          required
+        >
+
+        <button class="primary-button" type="submit">
+          Log In <span>→</span>
+        </button>
+      </form>
+
+      <p id="loginStatus" class="auth-status" role="status" aria-live="polite"></p>
+
+      <p class="auth-links">
+        New player?
+        <a href="signup.html">Create an account</a>
+      </p>
+    </section>
+
+    <footer>
+      <p>GAMEFINDER <span>•</span> VERSION 1.0</p>
+      <p>Made for players who want to find their next adventure.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="auth-pages.js"></script>
+</body>
+</html>
