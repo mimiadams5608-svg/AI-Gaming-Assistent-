@@ -7,60 +7,32 @@
   <title>AI Game Finder</title>
   <link rel="stylesheet" href="style.css">
 </head>
- 
-<header class="topbar">
-  <a class="logo" href="#">GAME<span>FINDER</span></a>
 
-  <div class="header-actions">
-    <span class="status">
-      <span class="status-dot"></span>
-      ASSISTANT ONLINE
-    </span>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">GAME<span>FINDER</span></a>
 
-    <button class="auth-button" id="loginButton" type="button">
-      Log In
-    </button>
+    <div class="header-actions">
+      <span class="status">
+        <span class="status-dot"></span>
+        ASSISTANT ONLINE
+      </span>
 
-    <button class="auth-button signup-button" id="signupButton" type="button">
-      Create Account
-    </button>
-  </div>
-</header>
+      <button class="auth-button" id="loginButton" type="button">
+        Log In
+      </button>
 
-<section id="authPanel" class="auth-panel" hidden>
-  <h2 id="authTitle">Log In</h2>
-  <p id="authMessage">Sign in to your Game Finder account.</p>
+      <button class="auth-button signup-button" id="signupButton" type="button">
+        Create Account
+      </button>
 
-  <form id="authForm">
-    <label for="authEmail">Email</label>
-    <input
-      id="authEmail"
-      type="email"
-      autocomplete="email"
-      placeholder="you@example.com"
-      required
-    />
+      <button class="auth-button" id="logoutButton" type="button" hidden>
+        Log Out
+      </button>
+    </div>
+  </header>
 
-    <label for="authPassword">Password</label>
-    <input
-      id="authPassword"
-      type="password"
-      autocomplete="current-password"
-      minlength="6"
-      placeholder="At least 6 characters"
-      required
-    />
-
-    <button id="authSubmit" type="submit">Log In</button>
-    <button id="authCancel" type="button">Cancel</button>
-  </form>
-
-  <p id="authStatus" role="status" aria-live="polite"></p>
-</section>
-
-<div id="accountStatus" aria-live="polite"></div>
-<button id="logoutButton" type="button" hidden>Log Out</button>
-
+  <div id="accountStatus" aria-live="polite"></div>
 
   <main class="container">
     <section class="hero">
@@ -71,6 +43,7 @@
         Every player is different. Tell me what you enjoy,
         and I'll help you discover your next adventure.
       </p>
+
       <div class="assistant-message">
         <span class="message-icon">✦</span>
         <p id="assistantMessage">
@@ -190,8 +163,10 @@
       <p>Made for players who want to find their next adventure.</p>
     </footer>
   </main>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script src="script.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
