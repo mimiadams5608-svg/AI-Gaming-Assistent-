@@ -387,6 +387,7 @@ logoutButton.addEventListener("click", async () => {
     logoutButton.disabled = false;
   }
 });
+
 supabaseClient.auth.onAuthStateChange(() => {
   updateAccountStatus();
 });
