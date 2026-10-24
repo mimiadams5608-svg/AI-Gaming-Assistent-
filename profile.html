@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | AI Game Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">GAME<span>FINDER</span></a>
+    <a class="back-link" href="index.html">← Back to Game Finder</a>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="assistant-icon">✦</div>
+      <p class="eyebrow">YOUR GAMING SPACE</p>
+      <h1>My <span>Profile.</span></h1>
+      <p class="intro">
+        Manage your profile, personalize your game recommendations,
+        and keep track of your favorite games.
+      </p>
+      <p id="profileAccountStatus" class="form-note" role="status">
+        Checking your account...
+      </p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div class="step-number">01</div>
+        <div>
+          <h2>Player Information</h2>
+          <p>Make your Game Finder profile your own.</p>
+        </div>
+      </div>
+
+      <form id="profileForm">
+        <fieldset>
+          <label for="profileEmail">Account email</label>
+          <input
+            id="profileEmail"
+            type="email"
+            disabled
+            style="width:100%; padding:14px; margin-top:8px; border:1px solid var(--border); border-radius:12px; background:#121b30; color:var(--muted);"
+          >
+
+          <label for="profileName" style="display:block; margin-top:22px;">
+            Display name
+          </label>
+          <input
+            id="profileName"
+            type="text"
+            maxlength="50"
+            placeholder="What should we call you?"
+            required
+            style="width:100%; padding:14px; margin-top:8px; border:1px solid var(--border); border-radius:12px; background:#121b30; color:var(--text); font:inherit;"
+          >
+
+          <label for="profilePreferences" style="display:block; margin-top:22px;">
+            Gaming preferences
+          </label>
+          <textarea
+            id="profilePreferences"
+            rows="4"
+            maxlength="1000"
+            placeholder="For example: cozy games, adventure, funny characters, colorful worlds..."
+            style="width:100%; padding:14px; margin-top:8px; border:1px solid var(--border); border-radius:12px; background:#121b30; color:var(--text); font:inherit; resize:vertical;"
+          ></textarea>
+          <p class="hint">
+            Tell us what kinds of games you enjoy. You can change this anytime.
+          </p>
+        </fieldset>
+
+        <button class="primary-button" type="submit">
+          Save Profile <span>→</span>
+        </button>
+        <p id="profileSaveStatus" class="form-note" role="status"></p>
+      </form>
+    </section>
+
+    <section class="panel" style="margin-top:24px;">
+      <div class="section-heading">
+        <div class="step-number">02</div>
+        <div>
+          <h2>My Favorite Games</h2>
+          <p>Your personal collection of saved games.</p>
+        </div>
+      </div>
+
+      <div id="favoritesList">
+        <p class="hint">Your favorite games will appear here.</p>
+      </div>
+      <p id="favoritesStatus" class="form-note" role="status"></p>
+    </section>
+
+    <footer>
+      <p>GAMEFINDER <span>•</span> VERSION 1.0</p>
+      <p>Made for players who want to find their next adventure.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>
