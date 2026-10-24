@@ -363,6 +363,7 @@ async function updateAccountStatus() {
   }
 }
 
+
 logoutButton.addEventListener("click", async () => {
   logoutButton.disabled = true;
   accountStatus.textContent = "Logging out...";
@@ -370,16 +371,17 @@ logoutButton.addEventListener("click", async () => {
   try {
     const { error } = await supabaseClient.auth.signOut();
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
+    // Show the login and signup buttons again
+    document.getElementById("loginButton").hidden = false;
+    document.getElementById("signupButton").hidden = false;
+    logoutButton.hidden = true;
+
+    // Clear the account status and close the auth form
+    accountStatus.textContent = "You have logged out.";
     authPanel.hidden = true;
     authForm.reset();
-
-    accountStatus.textContent = "You have logged out.";
-
-    await updateAccountStatus();
   } catch (error) {
     accountStatus.textContent =
       error.message || "Unable to log out. Please try again.";
