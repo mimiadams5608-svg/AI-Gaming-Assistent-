@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | AI Game Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="index.html">GAME<span>FINDER</span></a>
+    <span class="status">
+      <span class="status-dot"></span>
+      ASSISTANT ONLINE
+    </span>
+  </header>
+
+  <main class="auth-page">
+    <a class="back-link" href="index.html">← Back to Game Finder</a>
+
+    <section class="auth-panel">
+      <div class="assistant-icon">✦</div>
+      <p class="eyebrow" style="text-align:center">JOIN THE ADVENTURE</p>
+      <h1>Create <span>Account.</span></h1>
+      <p class="auth-description">
+        Create your account and discover games picked for you.
+      </p>
+
+      <form id="signupForm" class="auth-form">
+        <label for="signupEmail">Email address</label>
+        <input
+          id="signupEmail"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+        >
+
+        <label for="signupPassword">Create a password</label>
+        <input
+          id="signupPassword"
+          type="password"
+          autocomplete="new-password"
+          minlength="6"
+          placeholder="At least 6 characters"
+          required
+        >
+
+        <button class="primary-button" type="submit">
+          Create Account <span>→</span>
+        </button>
+      </form>
+
+      <p id="signupStatus" class="auth-status" role="status" aria-live="polite"></p>
+
+      <p class="auth-links">
+        Already have an account?
+        <a href="login.html">Log in</a>
+      </p>
+    </section>
+
+    <footer>
+      <p>GAMEFINDER <span>•</span> VERSION 1.0</p>
+      <p>Made for players who want to find their next adventure.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="auth-pages.js"></script>
+</body>
+</html>
