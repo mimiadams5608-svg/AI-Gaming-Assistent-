@@ -245,6 +245,7 @@ const accountStatus = document.getElementById("accountStatus");
 const logoutButton = document.getElementById("logoutButton");
 const loginButton = document.getElementById("loginButton");
 const signupButton = document.getElementById("signupButton");
+const profileButton = document.getElementById("profileButton");
 
 // Open the separate login page.
 loginButton.addEventListener("click", () => {
@@ -254,6 +255,11 @@ loginButton.addEventListener("click", () => {
 // Open the separate create-account page.
 signupButton.addEventListener("click", () => {
   window.location.href = "signup.html";
+});
+
+//Open the profile page
+profileButton.addEventListener("click", () => {
+  window.location.href = "profile.html";
 });
 
 // Check whether someone is signed in.
@@ -270,11 +276,13 @@ async function updateAccountStatus() {
       logoutButton.hidden = false;
       loginButton.hidden = true;
       signupButton.hidden = true;
+      profileButton.hidden = false;  
     } else {
       accountStatus.textContent = "";
       logoutButton.hidden = true;
       loginButton.hidden = false;
       signupButton.hidden = false;
+      profileButton.hidden = true;
     }
   } catch (error) {
     console.error("Unable to check account status:", error.message);
