@@ -339,6 +339,7 @@ function getReason(game, preferences) {
   return "It shares some of your gaming preferences and may be worth exploring.";
 }
 
+
 function displayMatches(matches, preferences) {
   resultsContainer.innerHTML = "";
 
@@ -349,16 +350,16 @@ function displayMatches(matches, preferences) {
     const title = document.createElement("h3");
     title.textContent = game.title;
 
-   const image = document.createElement("img");
-image.className = "game-cover";
-image.alt = `${game.title} cover`;
-image.loading = "lazy";
+    const image = document.createElement("img");
+    image.className = "game-cover";
+    image.alt = `${game.title} cover`;
+    image.loading = "lazy";
 
-if (game.image) {
-  image.src = game.image;
-} else {
-  image.hidden = true;
-}
+    if (game.image) {
+      image.src = game.image;
+    } else {
+      image.hidden = true;
+    }
 
     const matchLabel = document.createElement("p");
     matchLabel.className = "match-label";
@@ -366,7 +367,8 @@ if (game.image) {
       index === 0 ? "TOP MATCH" : "RECOMMENDED FOR YOU";
 
     const description = document.createElement("p");
-    description.textContent = game.description;
+    description.textContent =
+      game.description || "Loading game description...";
 
     const reasonLabel = document.createElement("p");
     reasonLabel.textContent =
@@ -374,6 +376,35 @@ if (game.image) {
 
     card.append(image, matchLabel, title, description, reasonLabel);
     resultsContainer.appendChild(card);
+
+    // Fetch the full game description from our API.
+    if (game.id) {
+      fetch(`/api/games?id=${encodeURIComponent(game.id)}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Could not load game details.");
+          }
+
+          return response.json();
+        })
+        .then((details) => {
+          if (details.description) {
+            description.textContent = details.description;
+          } else {
+            description.textContent =
+              "A description is not available for this game yet.";
+          }
+        })
+        .catch((error) => {
+          console.error("Game description error:", error);
+          description.textContent =
+            "Game details could not be loaded. Please try again later.";
+        });
+    } else {
+      description.textContent =
+        game.description ||
+        "A description is not available for this game yet.";
+    }
   });
 
   resultsSection.hidden = false;
@@ -387,6 +418,7 @@ if (game.image) {
 
   resultsSection.scrollIntoView({ behavior: "smooth" });
 }
+
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
