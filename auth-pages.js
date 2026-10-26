@@ -45,21 +45,25 @@ if (signupForm) {
   signupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("signupEmail").value.trim();
-    const password = document.getElementById("signupPassword").value;
-    const submitButton = signupForm.querySelector('button[type="submit"]');
+    const username = document.getElementById("signupUsername").value.trim();
+const email = document.getElementById("signupEmail").value.trim();
+const password = document.getElementById("signupPassword").value;
+const submitButton = signupForm.querySelector('button[type="submit"]');
 
     submitButton.disabled = true;
     signupStatus.textContent = "Creating your account...";
 
     try {
-      const { data, error } = await supabaseClient.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: new URL(HOME_PAGE, window.location.href).href
-        }
-      });
+   const { data, error } = await supabaseClient.auth.signUp({
+  email,
+  password,
+  options: {
+    data: {
+      username: username
+    },
+    emailRedirectTo: new URL(HOME_PAGE, window.location.href).href
+  }
+});
 
       if (error) throw error;
 
