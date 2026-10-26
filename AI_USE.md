@@ -29,3 +29,12 @@ I checked the website's behavior by using the live application and verifying the
 
 ## Limitations
 AI-generated suggestions may contain errors and require human review. Game availability and information depend on the data source used by the website.
+
+## Some AI Prompts Used During Development
+
+### Prompt 1: Connecting Supabase
+"My Supabase project is already created. Help me connect it to my existing AI Game Finder website safely."
+
+### Prompt 2: Connecting Login and Account Creation
+"I created supabase-config.js and added my Supabase details locally. Help me connect the login and account creation buttons safely."
+
