@@ -8,13 +8,13 @@
 
 The earlier version of AI Game Finder relied on a limited collection of games, restricting the variety of recommendations available to users.
 
-**Screenshot:** [View BEFORE screenshot] <img width="651" height="775" alt="Screenshot 2026-10-21 at 7 46 07 PM" src="https://github.com/user-attachments/assets/868c4131-08be-459e-8998-429f1057841b" />
+**Screenshot:** Before: <img width="651" height="775" alt="Screenshot 2026-10-21 at 7 46 07 PM" src="https://github.com/user-attachments/assets/868c4131-08be-459e-8998-429f1057841b" />
 
 **After — October 26, 2026**
 
 I connected the website to an external game database/API so it could retrieve game information and expand the options available for game discovery.
 
-**Screenshot:** [View AFTER screenshot] <img width="1378" height="760" alt="Screenshot 2026-10-26 at 2 51 56 PM" src="https://github.com/user-attachments/assets/55ab93fe-03da-45d3-aeb0-20765a329c48" />
+**Screenshot:** AFTER: <img width="1378" height="760" alt="Screenshot 2026-10-26 at 2 51 56 PM" src="https://github.com/user-attachments/assets/55ab93fe-03da-45d3-aeb0-20765a329c48" />
 
 ### Why This Revision Matters
 
