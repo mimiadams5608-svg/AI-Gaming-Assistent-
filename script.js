@@ -1,4 +1,5 @@
 let rawgGames = [];
+
 async function loadRawgGames() {
   try {
     const response = await fetch("/api/games");
@@ -9,17 +10,92 @@ async function loadRawgGames() {
 
     const data = await response.json();
 
-    rawgGames = (data.games || []).map((game) => ({
-      id: game.id,
-      title: game.title,
-      image: game.image,
-      description: game.description || "Discover this game and see if it matches your style.",
-      genres: (game.genres || []).map((genre) => genre.toLowerCase()),
-      moods: [],
-      styles: [],
-      platforms: game.platforms || [],
-      symbol: "🎮"
-    }));
+    rawgGames = (data.games || []).map((game) => {
+      const genres = (game.genres || []).map((genre) =>
+        genre.toLowerCase()
+      );
+
+      const description =
+        game.description ||
+        "Discover this game and see if it matches your style.";
+
+      const gameInfo = (
+        game.title + " " + description + " " + genres.join(" ")
+      ).toLowerCase();
+
+      const moods = [];
+      const styles = [];
+
+      // Estimate moods using available game information.
+      if (
+        genres.some((genre) =>
+          ["adventure", "role-playing", "indie"].includes(genre)
+        )
+      ) {
+        moods.push("curious");
+      }
+
+      if (
+        genres.some((genre) =>
+          ["action", "shooter", "fighting"].includes(genre)
+        )
+      ) {
+        moods.push("excited");
+      }
+
+      if (
+        genres.some((genre) =>
+          ["casual", "puzzle", "simulation"].includes(genre)
+        )
+      ) {
+        moods.push("relaxed");
+      }
+
+      // Estimate play styles from genres and game information.
+      if (
+        genres.some((genre) =>
+          ["role-playing", "adventure"].includes(genre)
+        )
+      ) {
+        styles.push("story");
+      }
+
+      if (
+        genres.some((genre) =>
+          ["action", "shooter", "racing"].includes(genre)
+        )
+      ) {
+        styles.push("competitive");
+      }
+
+      if (
+        genres.some((genre) =>
+          ["puzzle", "strategy"].includes(genre)
+        )
+      ) {
+        styles.push("strategic");
+      }
+
+      if (
+        genres.some((genre) =>
+          ["casual", "simulation", "indie"].includes(genre)
+        )
+      ) {
+        styles.push("casual");
+      }
+
+      return {
+        id: game.id,
+        title: game.title,
+        image: game.image,
+        description,
+        genres,
+        moods,
+        styles,
+        platforms: game.platforms || [],
+        symbol: "🎮"
+      };
+    });
 
     console.log(`Loaded ${rawgGames.length} games from RAWG.`);
   } catch (error) {
