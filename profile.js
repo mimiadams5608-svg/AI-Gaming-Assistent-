@@ -77,11 +77,6 @@ profileForm.addEventListener("submit", async (event) => {
   const displayName = profileName.value.trim();
   const gamingPreferences = profilePreferences.value.trim();
 
-  if (!displayName) {
-    profileSaveStatus.textContent = "Please enter a display name.";
-    return;
-  }
-
   const submitButton = profileForm.querySelector(
     'button[type="submit"]'
   );
@@ -95,7 +90,7 @@ profileForm.addEventListener("submit", async (event) => {
       .upsert(
         {
           id: currentUser.id,
-          display_name: displayName,
+          display_name: displayName || null,
           preferences: { games: gamingPreferences },
           updated_at: new Date().toISOString()
         },
