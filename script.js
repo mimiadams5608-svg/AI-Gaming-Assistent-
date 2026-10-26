@@ -388,13 +388,16 @@ function displayMatches(matches, preferences) {
           return response.json();
         })
         .then((details) => {
-          if (details.description) {
-            description.textContent = details.description;
-          } else {
-            description.textContent =
-              "A description is not available for this game yet.";
-          }
-        })
+  const gameDetails = details.game;
+
+  if (gameDetails && gameDetails.description) {
+    description.textContent = gameDetails.description;
+  } else {
+    description.textContent =
+      "A description is not available for this game yet.";
+  }
+})
+
         .catch((error) => {
           console.error("Game description error:", error);
           description.textContent =
