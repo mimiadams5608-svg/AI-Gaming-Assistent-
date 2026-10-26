@@ -178,10 +178,16 @@ function displayMatches(matches, preferences) {
     const title = document.createElement("h3");
     title.textContent = game.title;
 
-    const symbol = document.createElement("div");
-    symbol.className = "game-symbol";
-    symbol.textContent = game.symbol;
-    symbol.setAttribute("aria-hidden", "true");
+   const image = document.createElement("img");
+image.className = "game-cover";
+image.alt = `${game.title} cover`;
+image.loading = "lazy";
+
+if (game.image) {
+  image.src = game.image;
+} else {
+  image.hidden = true;
+}
 
     const matchLabel = document.createElement("p");
     matchLabel.className = "match-label";
@@ -195,7 +201,7 @@ function displayMatches(matches, preferences) {
     reasonLabel.textContent =
       "Why it might fit: " + getReason(game, preferences);
 
-    card.append(symbol, matchLabel, title, description, reasonLabel);
+    card.append(image, matchLabel, title, description, reasonLabel);
     resultsContainer.appendChild(card);
   });
 
