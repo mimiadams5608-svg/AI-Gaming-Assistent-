@@ -185,10 +185,18 @@ const rankedGames = sourceGames.map((game) => {
   return rankedGames.slice(0, 3);
 }
 
+
 function getReason(game, preferences) {
+  // RAWG games may not have custom reasons yet.
+  if (!game.reasons) {
+    return "This game is worth exploring based on your selected preferences.";
+  }
+
   // Explain the match using one of the user's answers.
-  if (game.reasons[preferences.mood] &&
-      game.moods.includes(preferences.mood)) {
+  if (
+    game.reasons[preferences.mood] &&
+    game.moods.includes(preferences.mood)
+  ) {
     return game.reasons[preferences.mood];
   }
 
