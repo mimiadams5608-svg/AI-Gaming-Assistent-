@@ -88,7 +88,7 @@ if (
           ["action", "shooter", "fighting"].includes(genre)
         )
       ) {
-        moods.push("excited");
+        moods.push("exciting");
       }
 
       if (
@@ -96,7 +96,7 @@ if (
           ["casual", "puzzle", "simulation"].includes(genre)
         )
       ) {
-        moods.push("relaxed");
+        moods.push("relaxing");
       }
 
       // Estimate play styles from genres and game information.
