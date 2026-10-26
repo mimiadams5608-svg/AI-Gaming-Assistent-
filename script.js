@@ -435,13 +435,63 @@ function displayMatches(matches, preferences) {
 
     reasonLabel.append(reasonHeading, reasonText);
 
+    
+    // Create the Save to Favorites button.
+    const favoriteButton = document.createElement("button");
+    favoriteButton.type = "button";
+    favoriteButton.className = "secondary-button";
+    favoriteButton.textContent = "♡ Save to Favorites";
+    favoriteButton.style.marginTop = "12px";
+
+    favoriteButton.addEventListener("click", async () => {
+      favoriteButton.disabled = true;
+
+      try {
+        const { data: userData, error: userError } =
+          await supabaseClient.auth.getUser();
+
+        if (userError) throw userError;
+
+        if (!userData.user) {
+          favoriteButton.textContent = "Please log in first";
+          return;
+        }
+
+        const { error: saveError } = await supabaseClient
+          .from("favorite_games")
+          .insert({
+            user_id: userData.user.id,
+            game_title: game.title,
+            game_data: {
+              description: game.description || "",
+              image: game.image || "",
+              genres: game.genres || []
+            }
+          });
+
+        if (saveError) throw saveError;
+
+        favoriteButton.textContent = "♥ Saved to Favorites!";
+      } catch (error) {
+        console.error("Save favorite error:", error);
+
+        favoriteButton.textContent =
+          error.code === "23505"
+            ? "♥ Already in Favorites"
+            : "Couldn't save — try again";
+
+        favoriteButton.disabled = false;
+      }
+    });
+
     card.append(
       image,
       matchLabel,
       title,
       description,
       readMoreButton,
-      reasonLabel
+      reasonLabel,
+      favoriteButton
     );
 
     resultsContainer.appendChild(card);
