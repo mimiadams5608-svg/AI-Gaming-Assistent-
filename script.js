@@ -457,20 +457,37 @@ function displayMatches(matches, preferences) {
           return;
         }
 
-        const { error: saveError } = await supabaseClient
-          .from("favorite_games")
-          .insert({
-            user_id: userData.user.id,
-            game_title: game.title,
-            game_data: {
-              description: game.description || "",
-              image: game.image || "",
-              genres: game.genres || []
-            }
-          });
 
-        if (saveError) throw saveError;
+const { data: existingFavorite, error: checkError } =
+  await supabaseClient
+    .from("favorite_games")
+    .select("id")
+    .eq("user_id", userData.user.id)
+    .eq("game_title", game.title)
+    .maybeSingle();
 
+if (checkError) throw checkError;
+
+if (existingFavorite) {
+  favoriteButton.textContent = "♥ Already Saved";
+  return;
+}
+
+const { error: saveError } = await supabaseClient
+  .from("favorite_games")
+  .insert({
+    user_id: userData.user.id,
+    game_title: game.title,
+    game_data: {
+      description: game.description || "",
+      image: game.image || "",
+      genres: game.genres || []
+    }
+  });
+
+if (saveError) throw saveError;
+
+        
         favoriteButton.textContent = "♥ Saved to Favorites!";
       } catch (error) {
         console.error("Save favorite error:", error);
