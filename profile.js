@@ -2,6 +2,7 @@
 const profileAccountStatus = document.getElementById("profileAccountStatus");
 const profileForm = document.getElementById("profileForm");
 const profileEmail = document.getElementById("profileEmail");
+const profileUsername = document.getElementById("profileUsername");
 const profileName = document.getElementById("profileName");
 const profilePreferences = document.getElementById("profilePreferences");
 const profileSaveStatus = document.getElementById("profileSaveStatus");
