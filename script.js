@@ -319,24 +319,57 @@ function findMatches(preferences) {
 
 
 function getReason(game, preferences) {
-  // RAWG games may not have custom reasons yet.
-  if (!game.reasons) {
-    return "This game is worth exploring based on your selected preferences.";
+  const matchedGenres = (game.genres || []).filter((genre) =>
+    (preferences.genres || []).some(
+      (selectedGenre) =>
+        selectedGenre.toLowerCase() === genre.toLowerCase()
+    )
+  );
+
+  const reasons = [];
+
+  if (matchedGenres.length > 0) {
+    reasons.push(
+      `It matches your interest in ${matchedGenres.join(", ")} games.`
+    );
   }
 
-  // Explain the match using one of the user's answers.
+  const moodDescriptions = {
+    relaxing: "a more relaxing gaming experience",
+    funny: "humor and lighthearted moments",
+    mysterious: "mystery and discovery",
+    emotional: "emotional storytelling",
+    exciting: "an exciting, action-filled experience"
+  };
+
+  if (preferences.mood && moodDescriptions[preferences.mood]) {
+    reasons.push(
+      `You selected ${moodDescriptions[preferences.mood]}.`
+    );
+  }
+
+  const styleDescriptions = {
+    exploration: "exploring worlds and discovering new things",
+    story: "following stories and characters",
+    creativity: "creating, building, and experimenting",
+    challenge: "solving puzzles and tackling challenges",
+    combat: "combat and action"
+  };
+
   if (
-    game.reasons[preferences.mood] &&
-    game.moods.includes(preferences.mood)
+    preferences.playstyle &&
+    styleDescriptions[preferences.playstyle]
   ) {
-    return game.reasons[preferences.mood];
+    reasons.push(
+      `You enjoy ${styleDescriptions[preferences.playstyle]}.`
+    );
   }
 
-  if (game.reasons[preferences.playstyle]) {
-    return game.reasons[preferences.playstyle];
+  if (reasons.length === 0) {
+    return "Explore this game to see whether its gameplay and features fit your interests.";
   }
 
-  return "It shares some of your gaming preferences and may be worth exploring.";
+  return reasons.join(" ");
 }
 
 
@@ -346,9 +379,6 @@ function displayMatches(matches, preferences) {
   matches.forEach((game, index) => {
     const card = document.createElement("article");
     card.className = "game-card";
-
-    const title = document.createElement("h3");
-    title.textContent = game.title;
 
     const image = document.createElement("img");
     image.className = "game-cover";
@@ -366,18 +396,56 @@ function displayMatches(matches, preferences) {
     matchLabel.textContent =
       index === 0 ? "TOP MATCH" : "RECOMMENDED FOR YOU";
 
+    const title = document.createElement("h3");
+    title.textContent = game.title;
+
     const description = document.createElement("p");
+    description.className = "game-description collapsed";
     description.textContent =
-      game.description || "Loading game description...";
+      game.description ||
+      "Loading game description...";
+
+    const readMoreButton = document.createElement("button");
+    readMoreButton.className = "read-more-button";
+    readMoreButton.type = "button";
+    readMoreButton.textContent = "Read More";
+    readMoreButton.setAttribute("aria-expanded", "false");
+
+    readMoreButton.addEventListener("click", () => {
+      const isCollapsed = description.classList.toggle("collapsed");
+
+      readMoreButton.textContent = isCollapsed
+        ? "Read More"
+        : "Show Less";
+
+      readMoreButton.setAttribute(
+        "aria-expanded",
+        String(!isCollapsed)
+      );
+    });
 
     const reasonLabel = document.createElement("p");
-    reasonLabel.textContent =
-      "Why it might fit: " + getReason(game, preferences);
+    reasonLabel.className = "match-reason";
 
-    card.append(image, matchLabel, title, description, reasonLabel);
+    const reasonHeading = document.createElement("strong");
+    reasonHeading.textContent = "WHY IT MIGHT FIT";
+
+    const reasonText = document.createElement("span");
+    reasonText.textContent = getReason(game, preferences);
+
+    reasonLabel.append(reasonHeading, reasonText);
+
+    card.append(
+      image,
+      matchLabel,
+      title,
+      description,
+      readMoreButton,
+      reasonLabel
+    );
+
     resultsContainer.appendChild(card);
 
-    // Fetch the full game description from our API.
     if (game.id) {
       fetch(`/api/games?id=${encodeURIComponent(game.id)}`)
         .then((response) => {
@@ -388,25 +456,22 @@ function displayMatches(matches, preferences) {
           return response.json();
         })
         .then((details) => {
-  const gameDetails = details.game;
+          const gameDetails = details.game;
 
-  if (gameDetails && gameDetails.description) {
-    description.textContent = gameDetails.description;
-  } else {
-    description.textContent =
-      "A description is not available for this game yet.";
-  }
-})
-
+          if (gameDetails && gameDetails.description) {
+            description.textContent = gameDetails.description;
+          } else {
+            description.textContent =
+              "A description is not available for this game yet.";
+          }
+        })
         .catch((error) => {
           console.error("Game description error:", error);
+
           description.textContent =
+            game.description ||
             "Game details could not be loaded. Please try again later.";
         });
-    } else {
-      description.textContent =
-        game.description ||
-        "A description is not available for this game yet.";
     }
   });
 
@@ -421,6 +486,8 @@ function displayMatches(matches, preferences) {
 
   resultsSection.scrollIntoView({ behavior: "smooth" });
 }
+
+
 
 
 form.addEventListener("submit", (event) => {
