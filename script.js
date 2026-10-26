@@ -151,25 +151,33 @@ const assistantMessage = document.getElementById("assistantMessage");
 const resultIntro = document.getElementById("resultIntro");
 const startOverButton = document.getElementById("startOver");
 
+
 function findMatches(preferences) {
- const sourceGames = rawgGames.length > 0 ? rawgGames : games;
-const rankedGames = sourceGames.map((game) => {
+  const sourceGames = rawgGames.length > 0 ? rawgGames : games;
+
+  const rankedGames = sourceGames.map((game) => {
     let score = 0;
 
-    // Matching genres are worth 3 points each.
+    // Give points for matching genres.
     preferences.genres.forEach((genre) => {
-      if (game.genres.includes(genre)) {
+      if ((game.genres || []).includes(genre.toLowerCase())) {
         score += 3;
       }
     });
 
-    // Matching mood is worth 3 points.
-    if (game.moods.includes(preferences.mood)) {
+    // Give points for matching mood when available.
+    if (
+      preferences.mood &&
+      (game.moods || []).includes(preferences.mood)
+    ) {
       score += 3;
     }
 
-    // Matching play style is worth 3 points.
-    if (game.styles.includes(preferences.playstyle)) {
+    // Give points for matching play style when available.
+    if (
+      preferences.playstyle &&
+      (game.styles || []).includes(preferences.playstyle)
+    ) {
       score += 3;
     }
 
@@ -179,7 +187,7 @@ const rankedGames = sourceGames.map((game) => {
     };
   });
 
-  // Show the strongest matches first.
+  // Put the highest-scoring games first.
   rankedGames.sort((a, b) => b.score - a.score);
 
   return rankedGames.slice(0, 3);
