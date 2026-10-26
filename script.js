@@ -26,6 +26,54 @@ async function loadRawgGames() {
       const moods = [];
       const styles = [];
 
+// Exploring new worlds
+if (
+  genres.some((genre) =>
+    ["adventure", "open world", "role-playing"].includes(genre)
+  )
+) {
+  styles.push("exploration");
+}
+
+// Following a great story
+if (
+  genres.some((genre) =>
+    ["adventure", "role-playing", "drama"].includes(genre)
+  ) ||
+  /story|narrative|dialogue/.test(gameInfo)
+) {
+  styles.push("story");
+}
+
+// Creating and building
+if (
+  genres.some((genre) =>
+    ["simulation", "sandbox", "building"].includes(genre)
+  ) ||
+  /building|crafting|create|creative/.test(gameInfo)
+) {
+  styles.push("creativity");
+}
+
+// Solving puzzles and challenges
+if (
+  genres.some((genre) =>
+    ["puzzle", "strategy"].includes(genre)
+  )
+) {
+  styles.push("challenge");
+}
+
+// Fighting and taking action
+if (
+  genres.some((genre) =>
+    ["action", "shooter", "fighting"].includes(genre)
+  )
+) {
+  styles.push("combat");
+}
+
+
       // Estimate moods using available game information.
       if (
         genres.some((genre) =>
