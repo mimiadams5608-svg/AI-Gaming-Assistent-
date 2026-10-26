@@ -38,6 +38,7 @@ async function loadProfile() {
 
     currentUser = data.user;
     profileEmail.value = currentUser.email || "";
+    profileUsername.value = currentUser.user_metadata?.username || "";
     profileAccountStatus.textContent = "Signed in and ready to go!";
 
     await loadSavedProfile();
