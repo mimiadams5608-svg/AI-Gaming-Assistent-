@@ -152,7 +152,8 @@ const resultIntro = document.getElementById("resultIntro");
 const startOverButton = document.getElementById("startOver");
 
 function findMatches(preferences) {
-  const rankedGames = games.map((game) => {
+ const sourceGames = rawgGames.length > 0 ? rawgGames : games;
+const rankedGames = sourceGames.map((game) => {
     let score = 0;
 
     // Matching genres are worth 3 points each.
