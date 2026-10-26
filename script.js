@@ -1,4 +1,34 @@
 let rawgGames = [];
+async function loadRawgGames() {
+  try {
+    const response = await fetch("/api/games");
+
+    if (!response.ok) {
+      throw new Error("Unable to load games from RAWG.");
+    }
+
+    const data = await response.json();
+
+    rawgGames = (data.games || []).map((game) => ({
+      id: game.id,
+      title: game.title,
+      image: game.image,
+      description: game.description || "Discover this game and see if it matches your style.",
+      genres: (game.genres || []).map((genre) => genre.toLowerCase()),
+      moods: [],
+      styles: [],
+      platforms: game.platforms || [],
+      symbol: "🎮"
+    }));
+
+    console.log(`Loaded ${rawgGames.length} games from RAWG.`);
+  } catch (error) {
+    console.error("Could not load RAWG games:", error.message);
+  }
+}
+
+loadRawgGames();
+
 const games = [
   {
     title: "Stardew Valley",
