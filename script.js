@@ -1,4 +1,4 @@
-
+let rawgGames = [];
 const games = [
   {
     title: "Stardew Valley",
