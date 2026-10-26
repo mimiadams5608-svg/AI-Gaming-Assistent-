@@ -542,20 +542,53 @@ profileButton.addEventListener("click", () => {
 });
 
 // Check whether someone is signed in.
+
+
 async function updateAccountStatus() {
   try {
     const { data, error } = await supabaseClient.auth.getUser();
 
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
 
     if (data.user) {
-      accountStatus.textContent = `Signed in as ${data.user.email}`;
+      const user = data.user;
+
+      // Get the saved display name and account username.
+      let displayName = "";
+      let username = user.user_metadata?.username || "";
+
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("display_name")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (profileError) {
+        console.error("Unable to load display name:", profileError.message);
+      }
+
+      displayName = profile?.display_name?.trim() || "";
+      const nameToShow = displayName || username || "Player";
+
+      // Show the profile icon and name instead of the email.
+      accountStatus.replaceChildren();
+
+      const profileIcon = document.createElement("span");
+      profileIcon.textContent = "👤";
+      profileIcon.setAttribute("aria-hidden", "true");
+      profileIcon.style.marginRight = "8px";
+
+      const nameLabel = document.createElement("span");
+      nameLabel.textContent = nameToShow;
+
+      accountStatus.append(profileIcon, nameLabel);
+      accountStatus.style.textAlign = "right";
+      accountStatus.style.margin = "8px 20px";
+
       logoutButton.hidden = false;
       loginButton.hidden = true;
       signupButton.hidden = true;
-      profileButton.hidden = false;  
+      profileButton.hidden = false;
     } else {
       accountStatus.textContent = "";
       logoutButton.hidden = true;
@@ -568,6 +601,7 @@ async function updateAccountStatus() {
     accountStatus.textContent = "";
   }
 }
+
 
 // Log out and restore the account buttons.
 logoutButton.addEventListener("click", async () => {
